@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="HelloWorld" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cache" target="1.8" />
+      <module name="cache (1)" target="1.8" />
+      <module name="cache (2)" target="1.8" />
+      <module name="cache-client" target="1.8" />
+      <module name="cache-client (1)" target="1.8" />
+      <module name="cache-updater" target="1.8" />
+      <module name="client" target="1.8" />
+      <module name="HelloWorld" target="1.8" />
+      <module name="http-api" target="1.8" />
+      <module name="http-api (1)" target="1.8" />
+      <module name="http-service" target="1.8" />
+      <module name="runelite-api" target="1.8" />
+      <module name="runelite-parent" target="1.8" />
+      <module name="script-assembler-plugin" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
