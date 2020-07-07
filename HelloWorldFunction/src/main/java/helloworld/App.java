@@ -1,9 +1,6 @@
 package helloworld;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +8,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import net.runelite.cache.client.CacheClient;
 import net.runelite.cache.fs.Store;
 import net.runelite.protocol.api.login.HandshakeResponseType;
@@ -25,28 +29,85 @@ public class App implements RequestHandler<Object, Object> {
 
 	public Object handleRequest(final Object input, final Context context) {
 
-        try (Store store = new Store(new File("/tmp/cache")))
-        {
-            store.load();
+		/* Download the client.zip file from S3 */
+		Regions clientRegion = Regions.DEFAULT_REGION;
+		String bucketName = "cache.api.2007scape.tools";
+		String key = "cache.zip";
 
-            CacheClient c = new CacheClient(store, 190);
-            c.connect();
-            CompletableFuture<HandshakeResponseType> handshake = c.handshake();
+		S3Object fullObject = null, objectPortion = null, headerOverrideObject = null;
+		AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+				.withRegion(clientRegion)
+				.build();
 
-            HandshakeResponseType result = handshake.get();
+		System.out.println("Downloading an object");
+		fullObject = s3Client.getObject(new GetObjectRequest(bucketName, key));
 
-            c.download();
+		InputStream reader = new BufferedInputStream(
+				fullObject.getObjectContent());
+		File file = new File("/tmp/cache.zip");
+		OutputStream writer = null;
 
-            c.close();
-
-            store.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
+		try {
+			writer = new BufferedOutputStream(new FileOutputStream(file));
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
+		int read = -1;
+
+		while (true) {
+			try {
+				if (!(( read = reader.read() ) != -1)) break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				writer.write(read);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Downloaded to /tmp/cache.zip");
+
+//        try (Store store = new Store(new File("/tmp/cache")))
+//        {
+//            store.load();
+//
+//            CacheClient c = new CacheClient(store, 190);
+//            c.connect();
+//            CompletableFuture<HandshakeResponseType> handshake = c.handshake();
+//
+//            HandshakeResponseType result = handshake.get();
+//
+//            c.download();
+//
+//            c.close();
+//
+//            store.save();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
+//			e.printStackTrace();
+//		}
 
 		Map<String, String> headers = new HashMap<>();
 		headers.put("Content-Type", "application/json");

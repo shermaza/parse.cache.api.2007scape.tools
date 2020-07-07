@@ -7,7 +7,10 @@ Description: 'AWS
   '
 Globals:
   Function:
-    Timeout: 20
+    Timeout: 120
+    Environment:
+      Variables:
+        CACHE_BUCKET_NAME: cache.api.2007scape.tools
 Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function
@@ -16,9 +19,7 @@ Resources:
       Handler: helloworld.App::handleRequest
       Runtime: java11
       MemorySize: 512
-      Environment:
-        Variables:
-          PARAM1: VALUE
+      Role: arn:aws:iam::226176173674:role/CacheParser
       Events:
         HelloWorld:
           Type: Api
@@ -35,10 +36,4 @@ Outputs:
     Value:
       Fn::GetAtt:
       - HelloWorldFunction
-      - Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value:
-      Fn::GetAtt:
-      - HelloWorldFunctionRole
       - Arn
