@@ -7,7 +7,7 @@ Description: 'AWS
   '
 Globals:
   Function:
-    Timeout: 120
+    Timeout: 900
     Environment:
       Variables:
         CACHE_BUCKET_NAME: cache.api.2007scape.tools
