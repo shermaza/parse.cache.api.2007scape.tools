@@ -1,4 +1,4 @@
-package helloworld;
+package cachedownloader;
 
 import java.io.*;
 import java.net.URL;
@@ -92,13 +92,8 @@ public class App implements RequestHandler<Object, Object> {
 		Map<String, String> headers = new HashMap<>();
 		headers.put("Content-Type", "application/json");
 		headers.put("X-Custom-Header", "application/json");
-		try {
-			final String pageContents = this.getPageContents("https://checkip.amazonaws.com");
-			String output = String.format("{ \"message\": \"hello world\", \"locaton\": \"%s\" }", pageContents);
-			return new GatewayResponse(output, headers, 200);
-		} catch (IOException e) {
-			return new GatewayResponse("{}", headers, 500);
-		}
+		String output = String.format("{ \"message\": \"Success\"}");
+		return new GatewayResponse(output, headers, 200);
 	}
 
 	private String getPageContents(String address) throws IOException {

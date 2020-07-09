@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'AWS
+
+  SAM Template for the OSRS Cache Downloader
+
+  '
+Globals:
+  Function:
+    Timeout: 900
+    Environment:
+      Variables:
+        CACHE_BUCKET_NAME: cache.api.2007scape.tools
+Resources:
+  CacheDownloaderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: CacheDownloaderFunction
+      Handler: cachedownloader.App::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Role: arn:aws:iam::226176173674:role/CacheParser
+      Events:
+        WeeklySchedule:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 12 ? * THU *)
+            Name: WeeklySchedule
+            Description: run weekly
+            Enabled: true
+Outputs:
+  HelloWorldFunction:
+    Description: Cache Downloader Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - CacheDownloaderFunction
+      - Arn

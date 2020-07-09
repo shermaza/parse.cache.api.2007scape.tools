@@ -7,7 +7,7 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$">
+    <content url="">
       <sourceFolder url="file://$MODULE_DIR$/cache" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cache-updater" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.aws-sam" />

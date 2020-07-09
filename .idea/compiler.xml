@@ -7,7 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HelloWorld" />
+        <module name="CacheDownloader" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -17,8 +17,8 @@
       <module name="cache-client" target="1.8" />
       <module name="cache-client (1)" target="1.8" />
       <module name="cache-updater" target="1.8" />
+      <module name="CacheDownloader" target="1.8" />
       <module name="client" target="1.8" />
-      <module name="HelloWorld" target="1.8" />
       <module name="http-api" target="1.8" />
       <module name="http-api (1)" target="1.8" />
       <module name="http-service" target="1.8" />
