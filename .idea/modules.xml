@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CacheDownloader/CacheDownloader.iml" filepath="$PROJECT_DIR$/CacheDownloader/CacheDownloader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CacheDownloader.iml" filepath="$PROJECT_DIR$/CacheDownloader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CacheParser/CacheParser.iml" filepath="$PROJECT_DIR$/CacheParser/CacheParser.iml" />
     </modules>
   </component>
 </project>

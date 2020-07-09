@@ -37,11 +37,6 @@
         </dependency>
         <dependency>
             <groupId>net.runelite</groupId>
-            <artifactId>cache-client</artifactId>
-            <version>1.6.9</version>
-        </dependency>
-        <dependency>
-            <groupId>net.runelite</groupId>
             <artifactId>cache</artifactId>
             <version>1.6.9</version>
         </dependency>

@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "cache-downloader"
+stack_name = "cache-parser"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-11uvwqwenzl52"
-s3_prefix = "cache-downloader"
+s3_prefix = "cache-parser"
 region = "us-west-2"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
